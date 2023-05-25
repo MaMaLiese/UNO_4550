@@ -2,5 +2,5 @@
 
 Nora K., Kata S., Ksenija T., Marlies M.
 
-UNO spiel nach Offiziellen Regelen noch ohne UI
+UNO Spiel nach offiziellen Regeln noch ohne UI
 
