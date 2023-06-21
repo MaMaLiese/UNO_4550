@@ -1,9 +1,11 @@
+
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Player {
-    Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
     protected String name;
     protected int playersNumber = 4;
     private final ArrayList<Card> cardsInHand = new ArrayList<>();
@@ -11,70 +13,62 @@ public class Player {
     private String winner;
     private boolean gameOver;
 
-    public Player(int playersNumber, String name) {
+
+    public Player(String name, int playersNumber) {
         this.name = name;
         this.playersNumber = playersNumber;
         gameOver = false;
     }
 
-    //karte zu hand
+    public ArrayList<Card> getCardsInHand() {
+        return cardsInHand;
+    }
+
     public void giveCard(Card card) {
+        //karte zu hand - heben
         cardsInHand.add(card);
     }
 
-
-    //karte auf dem tisch legen
     public Card playerDropCard() {
+        //karte auf dem tisch legen
+
         int choice;   //kann wählen welche karte(wievielte) vom reihe(1-7)
 
         do {
-
             String a = input.nextLine();
-
             try {
                 choice = Integer.parseInt(a);
 
-            } catch (NumberFormatException e) {
-
-                System.out.println("Bitte eine Nummer zwischen 1 und " + cardsInHand.size() + " eingeben:");
+            } catch (NumberFormatException nfe) {
+                System.out.println("Error!...  Please enter a NUMBER between 1 and " + cardsInHand.size());
                 continue;
             }
-
-
             if (choice > 0 && choice <= cardsInHand.size()) {
-                return cardsInHand.remove(choice - 1);
+                if (Game.cardValidation(cardsInHand.get(choice - 1))) {
+                    return cardsInHand.remove(choice - 1);
+                }
             } else {
-                System.out.println("Bitte eine Nummer zwischen 1 und " + cardsInHand.size() + " eingeben:");
+                System.out.println("Error... Please enter a NUMBER between 1 and " + cardsInHand.size() + " eingeben:");
             }
-        } while (true);
-
+        }
+        while (true);
     }
 
-//    public boolean sayUno() {
-//        boolean uno = false;
-//        if (cards.size() ==1) {
-//            uno = true;
-//        } return uno;
-//    }
+    public void takeCardBack(Card card) {
+        cardsInHand.add(card);
+    }
 
-//    public String winner() {
-//        for (Player p : players) {
-//            if (p.cardsInHand.size() == 0) {
-//                winner = p.getName();
-//                gameOver = true;
-//            }
-//        } return winner;
-//    }
-
-    public int countMyCards() {   //wie viel karte habe ich
+    public int countMyCards() {
+        //wie viel karte hat ein spieler
         return cardsInHand.size();
     }
 
     public String showMyCards() {
+        //welche karten hat der spieler
         String myCards = "";
         int i = 1;
-        for (Card showMyCards : cardsInHand) {
-            myCards += i + " -> " + showMyCards.toString() + "\n";
+        for (Card shoMyCards : cardsInHand) {
+            myCards += i + " -> " + shoMyCards.toString() + "\n";
             i++;
         }
         return myCards;
@@ -96,9 +90,10 @@ public class Player {
         this.playersNumber = playersNumber;
     }
 
-
     @Override
     public String toString() {
+
         return "Player" + playersNumber + ": " + name + " Karten in Hand: " + cardsInHand + "\n";
     }
 }
+ 
