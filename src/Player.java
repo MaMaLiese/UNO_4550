@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Player {
@@ -50,6 +51,7 @@ public class Player {
             } else {
                 System.out.println("Error... Please enter a NUMBER between 1 and " + cardsInHand.size() + " eingeben:");
             }
+
         }
         while (true);
     }
@@ -62,7 +64,9 @@ public class Player {
         //wie viel karte hat ein spieler
         return cardsInHand.size();
     }
-
+    public boolean hasWon() {
+        return getCardsInHand().isEmpty();
+    }
     public String showMyCards() {
         //welche karten hat der spieler
         String myCards = "";
@@ -89,6 +93,9 @@ public class Player {
     public void setPlayersNumber(int playersNumber) {
         this.playersNumber = playersNumber;
     }
+    public boolean checkUno() {
+        return cardsInHand.size() == 1;
+    }
 
     @Override
     public String toString() {
@@ -96,4 +103,3 @@ public class Player {
         return "Player" + playersNumber + ": " + name + " Karten in Hand: " + cardsInHand + "\n";
     }
 }
- 
