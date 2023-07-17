@@ -56,9 +56,6 @@ public class Player {
         while (true);
     }
 
-    public void takeCardBack(Card card) {
-        cardsInHand.add(card);
-    }
 
     public int countMyCards() {
         //wie viel karte hat ein spieler
@@ -96,7 +93,14 @@ public class Player {
     public boolean checkUno() {
         return cardsInHand.size() == 1;
     }
+    public int getHandCardPoints() {
+        int points = 0;
+        for (Card c : cardsInHand) {
+            points += c.getValue();
 
+        }
+        return points;
+    }
     @Override
     public String toString() {
 
